@@ -1,14 +1,29 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "koneys-veterinary-hospital",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "vercel-build": "npm install --no-optional && npm run build"
+  },
+  "resolutions": {
+    "@rollup/rollup-linux-x64-gnu": "^4.41.1",
+    "@rollup/rollup-linux-x64-musl": "^4.41.1"
+  },
+  "overrides": {
+    "rollup": {
+      "@rollup/rollup-linux-x64-gnu": "^4.41.1",
+      "@rollup/rollup-linux-x64-musl": "^4.41.1"
+    }
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -73,8 +88,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
-    "@rollup/rollup-linux-arm64-gnu": "^4.24.0",
-    "@rollup/rollup-linux-x64-gnu": "^4.24.0",
+    "@rollup/rollup-linux-x64-gnu": "^4.41.1",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^22.5.5",
     "@types/react": "^18.3.3",
@@ -85,11 +99,9 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
-    "lovable-tagger": "^1.1.7",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.11",
     "typescript": "^5.5.3",
-    "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
   }
 }
