@@ -40,16 +40,35 @@ const HeroSection = () => {
 
   return (
     <div className="relative text-white py-32 md:py-48 lg:py-64 min-h-[90vh] flex items-center">
-      {/* Background Image */}
+      {/* Background Image with Motion */}
       <motion.div 
         key={currentImage}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, scale: 1.1 }}
+        animate={{ 
+          opacity: 1, 
+          scale: 1,
+          x: [0, 10, 0, -10, 0],
+          y: [0, 5, 0, -5, 0],
+        }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 1 }}
+        transition={{ 
+          duration: 15,
+          ease: "easeInOut",
+          repeat: Infinity,
+          repeatType: "reverse",
+          opacity: { duration: 1 },
+          scale: { duration: 15, ease: "easeInOut" },
+          x: { duration: 30, repeat: Infinity, repeatType: "reverse" },
+          y: { duration: 20, repeat: Infinity, repeatType: "reverse" }
+        }}
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${carouselImages[currentImage]})`,
+          backgroundPosition: 'center',
+          willChange: 'transform',
+          transformOrigin: 'center center',
+          width: '100%',
+          height: '100%',
         }}
       />
       

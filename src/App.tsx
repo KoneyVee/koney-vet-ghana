@@ -21,6 +21,7 @@ import ProductDetail from "./pages/ProductDetail";
 // Using relative paths for Blog and BlogPost components
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Media from "./pages/Media";
 
 const queryClient = new QueryClient();
 
@@ -87,6 +88,11 @@ const AnimatedRoutes = () => {
         <Route path="/blog/:slug" element={
           <PageTransition>
             <BlogPost />
+          </PageTransition>
+        } />
+        <Route path="/media" element={
+          <PageTransition>
+            <Media />
           </PageTransition>
         } />
         <Route path="*" element={

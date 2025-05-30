@@ -24,7 +24,7 @@ const TopHeader = () => {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5">
             <Clock className="h-3.5 w-3.5" />
-            <span>Mon-Fri: 8:00AM - 7:00PM</span>
+            <span>Mon-Sat: 8:00AM - 5:00PM</span>
           </div>
           <div className="hidden md:flex gap-3">
             <motion.a 
