@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MainLayout from '../components/layout/MainLayout';
 import BlockContent from '@sanity/block-content-to-react';
-import { getPostBySlug, urlFor, Post } from '../lib/sanity';
+import { getPostBySlug, urlFor, Post, client } from '../lib/sanity';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -15,14 +15,30 @@ const BlogPost = () => {
       if (!slug) return;
       
       try {
-        console.log('Fetching post with slug:', slug);
+        console.log('BlogPost page: Fetching post with slug:', slug);
         const data = await getPostBySlug(slug);
-        console.log('Sanity post retrieved:', data);
+        console.log('BlogPost page: Sanity post retrieved:', data);
         setPost(data);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching post:', err);
+        console.error('BlogPost page: Error fetching post:', err);
+        console.error('Error details:', err.message);
+        console.error('Error stack:', err.stack);
         setLoading(false);
+        
+        // Try a direct query as fallback
+        try {
+          console.log('BlogPost page: Attempting fallback query for slug:', slug);
+          const fallbackData = await client.fetch(
+            `*[_type == "post" && slug.current == $slug][0]{
+              _id, title, slug
+            }`,
+            { slug }
+          );
+          console.log('BlogPost page: Fallback query result:', fallbackData);
+        } catch (fallbackErr) {
+          console.error('BlogPost page: Fallback query also failed:', fallbackErr.message);
+        }
       }
     };
     

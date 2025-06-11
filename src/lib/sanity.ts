@@ -6,10 +6,10 @@ import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 export const client = createClient({
   projectId: 'fqp1d8a4',
   dataset: 'koneyblog',
-  useCdn: false, // Set to false during development to avoid caching issues
+  useCdn: true, // Enable CDN for better performance in production
   apiVersion: '2023-05-03', // Use the latest API version
   token: '', // Leave empty for public datasets
-  withCredentials: false, // Changed to false to avoid CORS preflight issues
+  withCredentials: false, // Keep false to avoid CORS preflight issues
 });
 
 // Set up the image URL builder
@@ -74,10 +74,24 @@ export const getAllPosts = async (): Promise<Post[]> => {
     if (posts.length === 0) {
       console.warn('No posts found in Sanity. Check if you have published posts with _type "post"');
     }
-    return posts;
+    return posts || [];
   } catch (error) {
     console.error('Error fetching posts from Sanity:', error);
     console.error('Error details:', error.message);
+    console.error('Error stack:', error.stack);
+    
+    // Try a simpler query as fallback
+    try {
+      console.log('Attempting fallback query...');
+      const simplePosts = await client.fetch(`*[_type == "post"][0...10]{_id, title}`);
+      console.log('Fallback query result:', simplePosts);
+      if (simplePosts && simplePosts.length > 0) {
+        console.log('Fallback query successful, found', simplePosts.length, 'posts');
+      }
+    } catch (fallbackError) {
+      console.error('Fallback query also failed:', fallbackError.message);
+    }
+    
     return [];
   }
 };

@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "engines": {
-    "node": "18.x",
+    "node": ">=18.x",
     "npm": ">=9.0.0"
   },
   "scripts": {
@@ -14,24 +14,6 @@
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "vercel-build": "npm ci --omit=optional && npm run build"
-  },
-  "resolutions": {
-    "@rollup/rollup-linux-x64-gnu": "^4.41.1",
-    "@rollup/rollup-linux-x64-musl": "^4.41.1",
-    "uuid": "^9.0.1",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.6",
-    "har-validator": "^5.1.5"
-  },
-  "overrides": {
-    "rollup": {
-      "@rollup/rollup-linux-x64-gnu": "^4.41.1",
-      "@rollup/rollup-linux-x64-musl": "^4.41.1"
-    },
-    "uuid": "^9.0.1",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.6",
-    "har-validator": "^5.1.5"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -89,18 +71,18 @@
     "recharts": "^2.12.7",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7",
+    "tailwindcss-animate": "1.0.7",
     "twilio": "^5.6.1",
     "vaul": "^0.9.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "7.27.1",
     "@eslint/js": "^9.9.0",
-    "@rollup/rollup-linux-x64-gnu": "^4.41.1",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^22.5.5",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "18.3.23",
+    "@types/react-dom": "18.3.7",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.9.0",
@@ -111,5 +93,8 @@
     "tailwindcss": "^3.4.11",
     "typescript": "^5.5.3",
     "vite": "^5.4.1"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-win32-x64-msvc": "4.42.0"
   }
 }

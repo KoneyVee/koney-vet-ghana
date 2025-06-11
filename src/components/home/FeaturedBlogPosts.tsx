@@ -10,13 +10,15 @@ const FeaturedBlogPosts = () => {
   useEffect(() => {
     const fetchFeaturedPosts = async () => {
       try {
-        console.log('Fetching featured posts from Sanity...');
+        console.log('FeaturedBlogPosts: Fetching featured posts from Sanity...');
         const data = await getFeaturedPosts(3); // Get 3 featured posts
-        console.log('Sanity featured posts retrieved:', data);
-        setPosts(data);
+        console.log('FeaturedBlogPosts: Sanity featured posts retrieved:', data);
+        setPosts(data || []);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching featured posts:', error);
+        console.error('FeaturedBlogPosts: Error fetching featured posts:', error);
+        console.error('Error details:', error.message);
+        console.error('Error stack:', error.stack);
         setLoading(false);
       }
     };

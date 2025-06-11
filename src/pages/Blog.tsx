@@ -7,17 +7,23 @@ import { getAllPosts, urlFor, Post } from '../lib/sanity';
 const Blog = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        console.log('Fetching posts from Sanity...');
+        setLoading(true);
+        setError(null);
+        console.log('Blog page: Fetching posts from Sanity...');
         const data = await getAllPosts();
-        console.log('Sanity posts retrieved:', data);
-        setPosts(data);
+        console.log('Blog page: Sanity posts retrieved:', data);
+        setPosts(data || []);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching posts:', err);
+        console.error('Blog page: Error fetching posts:', err);
+        console.error('Error details:', err.message);
+        console.error('Error stack:', err.stack);
+        setError('Failed to load blog posts. Please try again later.');
         setLoading(false);
       }
     };
